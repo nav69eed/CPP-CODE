@@ -535,6 +535,7 @@ int main()
             }
         }
     }
+    int save_c = c_count;
     file11.close();
 
     // INPUT STUDENTS FROM FILES
@@ -561,6 +562,7 @@ int main()
             s_count++;
         }
     }
+    int save_s = s_count;
     file111.close();
 
     menu();
@@ -580,15 +582,70 @@ int main()
     }
     else
     {
-         outfile1<<endl;
-         for (int i = save_f; i < f_count; i++)
-         {
-             outfile1 << f[i].f_name << endl;
-             outfile1 << f[i].course_name << endl;
-             outfile1 << f[i].f_password << endl;
-             outfile1 << f[i].phone;
-         }
+        for (int i = save_f; i < f_count; i++)
+        {
+            outfile1 << endl;
+            outfile1 << f[i].f_name << endl;
+            outfile1 << f[i].course_name << endl;
+            outfile1 << f[i].f_password << endl;
+            outfile1 << f[i].phone;
+        }
     }
+    outfile1.close();
+
+    //                    SAVING COURSE DATA
+    //                    SAVING COURSE DATA
+    //                    SAVING COURSE DATA
+    //                    SAVING COURSE DATA
+    //                    SAVING COURSE DATA
+
+    fstream outfile2;
+    outfile2.open("CourseData.txt", ios::app);
+    if (!outfile2)
+    {
+        cout << "Course Output Error";
+        return 0;
+    }
+    else
+    {
+        for (int i = save_c; i < c_count; i++)
+        {
+            outfile2 << endl;
+            outfile2 << c[i].c_name << endl;
+            outfile2 << c[i].f_name << endl;
+            outfile2 << c[i].semester << endl;
+            outfile2 << c[i].year << endl;
+            outfile2 << c[i].code;
+        }
+    }
+    outfile2.close();
+
+    //                    SAVING STUDENTS DATA
+    //                    SAVING STUDENTS DATA
+    //                    SAVING STUDENTS DATA
+    //                    SAVING STUDENTS DATA
+    //                    SAVING STUDENTS DATA
+
+    fstream outfile3;
+    outfile3.open("StudentData.txt", ios::app);
+    if (!outfile3)
+    {
+        cout << "Student sav error";
+        return 0;
+    }
+    else
+    {
+        for (int i = save_s; i < s_count; i++)
+        {
+            outfile3 << endl;
+            outfile3 << s[i].name << endl;
+            outfile3 << s[i].s_password << endl;
+            outfile3 << s[i].adress << endl;
+            outfile3 << s[i].roll;
+        }
+    }
+    outfile3.close();
+
     getchar();
     return 0;
 }
