@@ -471,6 +471,7 @@ void menu()
 }
 int main()
 {
+    // cin.ignore();
     string ch[3];
 
     // INPUT FACULTY FROM FILES
@@ -502,7 +503,7 @@ int main()
             f_count++;
         }
     }
-    int save_f=f_count;
+    int save_f = f_count;
     file1.close();
     // INPUT COURSE FROM FILES
     // INPUT COURSE FROM FILES
@@ -579,7 +580,14 @@ int main()
     }
     else
     {
-
+         outfile1<<endl;
+         for (int i = save_f; i < f_count; i++)
+         {
+             outfile1 << f[i].f_name << endl;
+             outfile1 << f[i].course_name << endl;
+             outfile1 << f[i].f_password << endl;
+             outfile1 << f[i].phone;
+         }
     }
     getchar();
     return 0;
