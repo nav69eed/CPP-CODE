@@ -479,8 +479,8 @@ void menu()
 int main()
 {
     // cin.ignore();
-    string ch[3];
-
+    // string ch[3];
+    string ch;
     // INPUT FACULTY FROM FILES
     // INPUT FACULTY FROM FILES
     // INPUT FACULTY FROM FILES
@@ -562,7 +562,13 @@ int main()
     {
         while (!file111.eof())
         {
-            getline(file111, s[s_count].name);
+            getline(file111, ch);
+            if (ch.length() == 0)
+            {
+                getline(file111, s[s_count].name);
+            }
+            else
+                s[s_count].name = ch;
             getline(file111, s[s_count].s_password);
             getline(file111, s[s_count].adress);
             getline(file111, s[s_count].roll);
@@ -647,7 +653,7 @@ int main()
     //                    SAVING STUDENTS DATA
 
     fstream outfile3;
-    outfile3.open("StudentData.txt", ios::app);
+    outfile3.open("StudentData.txt", ios::out);
     if (!outfile3)
     {
         cout << "Student sav error";
@@ -655,21 +661,20 @@ int main()
     }
     else
     {
-        for (int i = save_s; i < s_count; i++)
+        for (int i = 0; i < s_count; i++)
         {
             outfile3 << endl;
             outfile3 << s[i].name << endl;
             outfile3 << s[i].s_password << endl;
             outfile3 << s[i].adress << endl;
             outfile3 << s[i].roll << endl;
-            for (int j = s[i].save_course_taking_info; j < s[i].no_of_course_taken; j++)
+            for (int j = 0; j < 3; j++)
             {
                 outfile3 << s[i].course_taking[j] << endl;
             }
-            for (int j = s[i].save_course_taking_info; j < s[i].no_of_course_taken; j++)
-            {
-                
-            }
+            outfile3 << s[i].faculty_name[0] << endl;
+            outfile3 << s[i].faculty_name[1] << endl;
+            outfile3 << s[i].faculty_name[2];
         }
     }
     outfile3.close();
