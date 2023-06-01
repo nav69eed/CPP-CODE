@@ -145,8 +145,9 @@ class Students : public course, public Quiz
 private:
 public:
     string roll;
-    string name, adress, course_taking[3], faculty_name[3];
+    string name, adress, course_taking[3] = {"%%", "%%", "%%"}, faculty_name[3] = {"%%", "%%", "%%"};
     string s_password;
+    int save_course_taking_info;
     int attandance[3] = {0, 0, 0}, absents[3] = {0, 0, 0}, marks;
     int no_of_course_taken = 0;
     void set_student_data()
@@ -395,7 +396,7 @@ void student_panel()
     {
         int option;
         cout << "1 Enroll a course\n2 View Attandance\n3 Take Quiz\n4 Check Marks\n";
-        cout << "5 Exit To Main Menu\nChoose one : ";
+        cout << "5 View Enrolled Course\n6 Exit To Main Menu\nChoose one : ";
         cin >> option;
 
         if (option == 1)
@@ -425,10 +426,16 @@ void student_panel()
         else if (option == 3)
         {
         }
-        else if (option == 4)
-        {
-        }
         else if (option == 5)
+        {
+            cout << "\n\n";
+            for (int temp = 0; temp < s[i].no_of_course_taken; temp++)
+            {
+                cout << "Course : " << s[i].course_taking[temp] << "     Teachar : " << s[i].faculty_name[temp] << endl;
+            }
+            cout << "\n\n";
+        }
+        else if (option == 6)
         {
             return;
         }
@@ -559,6 +566,19 @@ int main()
             getline(file111, s[s_count].s_password);
             getline(file111, s[s_count].adress);
             getline(file111, s[s_count].roll);
+            for (int i = 0; i < 3; i++)
+            {
+                getline(file111, s[s_count].course_taking[i]);
+                if (s[s_count].course_taking[i] != "%%")
+                    s[s_count].no_of_course_taken++;
+            }
+
+            s[s_count].save_course_taking_info = s[s_count].no_of_course_taken;
+
+            for (int i = 0; i < 3; i++)
+            {
+                getline(file111, s[s_count].faculty_name[i]);
+            }
             s_count++;
         }
     }
@@ -641,7 +661,15 @@ int main()
             outfile3 << s[i].name << endl;
             outfile3 << s[i].s_password << endl;
             outfile3 << s[i].adress << endl;
-            outfile3 << s[i].roll;
+            outfile3 << s[i].roll << endl;
+            for (int j = s[i].save_course_taking_info; j < s[i].no_of_course_taken; j++)
+            {
+                outfile3 << s[i].course_taking[j] << endl;
+            }
+            for (int j = s[i].save_course_taking_info; j < s[i].no_of_course_taken; j++)
+            {
+                
+            }
         }
     }
     outfile3.close();
