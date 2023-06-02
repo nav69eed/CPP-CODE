@@ -497,7 +497,15 @@ int main()
         // cout << "File Opened\n";
         while (!file1.eof())
         {
-            getline(file1, f[f_count].f_name);
+            getline(file1, ch);
+            if (ch.length() == 0)
+            {
+                getline(file1, f[f_count].f_name);
+            }
+            else
+            {
+                f[f_count].f_name = ch;
+            }
             //  getline(file1, ch[0]);
             getline(file1, f[f_count].course_name);
             getline(file1, f[f_count].f_password);
@@ -529,9 +537,16 @@ int main()
             cout << "OPENED\n";
             while (!file11.eof())
             {
+                getline(file11, ch);
+                if (ch.length() == 0)
+                {
+                    getline(file11, c[c_count].c_name);
+                }
+                else
+                    c[c_count].c_name = ch;
                 // getline(file11,ch[0]);
                 // cout<<ch[0]<<endl;
-                getline(file11, c[c_count].c_name);
+
                 getline(file11, c[c_count].f_name);
                 getline(file11, c[c_count].semester);
                 getline(file11, c[c_count].year);
@@ -600,7 +615,7 @@ int main()
     //                    SAVING FACULTY DATA
 
     fstream outfile1;
-    outfile1.open("FacultyData.txt", ios::app);
+    outfile1.open("FacultyData.txt", ios::out);
     if (!outfile1)
     {
         cout << "Error\n";
@@ -608,7 +623,7 @@ int main()
     }
     else
     {
-        for (int i = save_f; i < f_count; i++)
+        for (int i = 0; i < f_count; i++)
         {
             outfile1 << endl;
             outfile1 << f[i].f_name << endl;
@@ -626,7 +641,7 @@ int main()
     //                    SAVING COURSE DATA
 
     fstream outfile2;
-    outfile2.open("CourseData.txt", ios::app);
+    outfile2.open("CourseData.txt", ios::out);
     if (!outfile2)
     {
         cout << "Course Output Error";
@@ -634,7 +649,7 @@ int main()
     }
     else
     {
-        for (int i = save_c; i < c_count; i++)
+        for (int i = 0; i < c_count; i++)
         {
             outfile2 << endl;
             outfile2 << c[i].c_name << endl;
