@@ -1,3 +1,4 @@
+//             STOI ERROR
 //                PASSWORD FOR ADMIN IS    1234
 //                PASSWORD FOR ADMIN IS    1234
 //                PASSWORD FOR ADMIN IS    1234
@@ -600,17 +601,19 @@ int main()
             {
                 getline(file111, s[s_count].faculty_name[i]);
             }
-            for(int i=0;i<3;i++)
+            for (int i = 0; i < 3; i++)
             {
                 string q;
-                getline(file111,q);
-                s[s_count].attandance[i]=stoi(q);
+                getline(file111, q);
+
+                s[s_count].attandance[i] = std::stoi(q);
             }
-            for(int i=0;i<3;i++)
+            for (int i = 0; i < 3; i++)
             {
                 string q;
-                getline(file111,q);
-                s[s_count].absents[i]=stoi(q);
+                getline(file111, q);
+
+                s[s_count].absents[i] = std::stoi(q);
             }
             s_count++;
         }
@@ -701,7 +704,15 @@ int main()
             }
             outfile3 << s[i].faculty_name[0] << endl;
             outfile3 << s[i].faculty_name[1] << endl;
-            outfile3 << s[i].faculty_name[2];
+            outfile3 << s[i].faculty_name[2] << endl;
+            for (int q = 0; q < 3; q++)
+            {
+                outfile3 << s[i].attandance[q] << endl;
+            }
+            for (int q = 0; q < 3; q++)
+            {
+                outfile3 << s[i].absents[q] << endl;
+            }
         }
     }
     outfile3.close();
