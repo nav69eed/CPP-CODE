@@ -600,6 +600,18 @@ int main()
             {
                 getline(file111, s[s_count].faculty_name[i]);
             }
+            for(int i=0;i<3;i++)
+            {
+                string q;
+                getline(file111,q);
+                s[s_count].attandance[i]=stoi(q);
+            }
+            for(int i=0;i<3;i++)
+            {
+                string q;
+                getline(file111,q);
+                s[s_count].absents[i]=stoi(q);
+            }
             s_count++;
         }
     }
