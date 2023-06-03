@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <string>
 #include <stdlib.h>
+#include <cstdlib>
 using namespace std;
 class Quiz
 {
@@ -603,120 +604,140 @@ int main()
             }
             for (int i = 0; i < 3; i++)
             {
-                string q;
-                getline(file111, q);
 
-                s[s_count].attandance[i] = std::stoi(q);
+                int num;
+                char ch[5];
+                int j = 0;
+                char x;
+                file111 >> x;
+                while (x != '$')
+                {
+                    ch[j] = x;
+                    file111 >> x;
+                    j++;
+                }
+                num = atoi(ch);
+                s[s_count].attandance[i] = num;
             }
             for (int i = 0; i < 3; i++)
             {
-                string q;
-                getline(file111, q);
-
-                s[s_count].absents[i] = std::stoi(q);
+                int num;
+                char ch[5];
+                int j = 0;
+                char x;
+                file111 >> x;
+                while (x != '$')
+                {
+                    ch[j] = x;
+                    file111 >> x;
+                    j++;
+                }
+                num = atoi(ch);
+                s[s_count].absents[i] = num;
             }
             s_count++;
         }
-    }
-    int save_s = s_count;
-    file111.close();
+        s_count--;
+        // int save_s = s_count;
+        file111.close();
+        cout << "No of students " << s_count << endl;
+        menu();
 
-    menu();
+        //                    SAVING FACULTY DATA
+        //                    SAVING FACULTY DATA
+        //                    SAVING FACULTY DATA
+        //                    SAVING FACULTY DATA
+        //                    SAVING FACULTY DATA
 
-    //                    SAVING FACULTY DATA
-    //                    SAVING FACULTY DATA
-    //                    SAVING FACULTY DATA
-    //                    SAVING FACULTY DATA
-    //                    SAVING FACULTY DATA
-
-    fstream outfile1;
-    outfile1.open("FacultyData.txt", ios::out);
-    if (!outfile1)
-    {
-        cout << "Error\n";
-        return 0;
-    }
-    else
-    {
-        for (int i = 0; i < f_count; i++)
+        fstream outfile1;
+        outfile1.open("FacultyData.txt", ios::out);
+        if (!outfile1)
         {
-            outfile1 << endl;
-            outfile1 << f[i].f_name << endl;
-            outfile1 << f[i].course_name << endl;
-            outfile1 << f[i].f_password << endl;
-            outfile1 << f[i].phone;
+            cout << "Error\n";
+            return 0;
         }
-    }
-    outfile1.close();
-
-    //                    SAVING COURSE DATA
-    //                    SAVING COURSE DATA
-    //                    SAVING COURSE DATA
-    //                    SAVING COURSE DATA
-    //                    SAVING COURSE DATA
-
-    fstream outfile2;
-    outfile2.open("CourseData.txt", ios::out);
-    if (!outfile2)
-    {
-        cout << "Course Output Error";
-        return 0;
-    }
-    else
-    {
-        for (int i = 0; i < c_count; i++)
+        else
         {
-            outfile2 << endl;
-            outfile2 << c[i].c_name << endl;
-            outfile2 << c[i].f_name << endl;
-            outfile2 << c[i].semester << endl;
-            outfile2 << c[i].year << endl;
-            outfile2 << c[i].code;
-        }
-    }
-    outfile2.close();
-
-    //                    SAVING STUDENTS DATA
-    //                    SAVING STUDENTS DATA
-    //                    SAVING STUDENTS DATA
-    //                    SAVING STUDENTS DATA
-    //                    SAVING STUDENTS DATA
-
-    fstream outfile3;
-    outfile3.open("StudentData.txt", ios::out);
-    if (!outfile3)
-    {
-        cout << "Student sav error";
-        return 0;
-    }
-    else
-    {
-        for (int i = 0; i < s_count; i++)
-        {
-            outfile3 << endl;
-            outfile3 << s[i].name << endl;
-            outfile3 << s[i].s_password << endl;
-            outfile3 << s[i].adress << endl;
-            outfile3 << s[i].roll << endl;
-            for (int j = 0; j < 3; j++)
+            for (int i = 0; i < f_count; i++)
             {
-                outfile3 << s[i].course_taking[j] << endl;
-            }
-            outfile3 << s[i].faculty_name[0] << endl;
-            outfile3 << s[i].faculty_name[1] << endl;
-            outfile3 << s[i].faculty_name[2] << endl;
-            for (int q = 0; q < 3; q++)
-            {
-                outfile3 << s[i].attandance[q] << endl;
-            }
-            for (int q = 0; q < 3; q++)
-            {
-                outfile3 << s[i].absents[q] << endl;
+                outfile1 << endl;
+                outfile1 << f[i].f_name << endl;
+                outfile1 << f[i].course_name << endl;
+                outfile1 << f[i].f_password << endl;
+                outfile1 << f[i].phone;
             }
         }
-    }
-    outfile3.close();
+        outfile1.close();
 
-    getchar();
-    return 0;
+        //                    SAVING COURSE DATA
+        //                    SAVING COURSE DATA
+        //                    SAVING COURSE DATA
+        //                    SAVING COURSE DATA
+        //                    SAVING COURSE DATA
+
+        fstream outfile2;
+        outfile2.open("CourseData.txt", ios::out);
+        if (!outfile2)
+        {
+            cout << "Course Output Error";
+            return 0;
+        }
+        else
+        {
+            for (int i = 0; i < c_count; i++)
+            {
+                outfile2 << endl;
+                outfile2 << c[i].c_name << endl;
+                outfile2 << c[i].f_name << endl;
+                outfile2 << c[i].semester << endl;
+                outfile2 << c[i].year << endl;
+                outfile2 << c[i].code;
+            }
+        }
+        outfile2.close();
+
+        //                    SAVING STUDENTS DATA
+        //                    SAVING STUDENTS DATA
+        //                    SAVING STUDENTS DATA
+        //                    SAVING STUDENTS DATA
+        //                    SAVING STUDENTS DATA
+
+        fstream outfile3;
+        outfile3.open("StudentData.txt", ios::out);
+        if (!outfile3)
+        {
+            cout << "Student sav error";
+            return 0;
+        }
+        else
+        {
+            for (int i = 0; i < s_count; i++)
+            {
+                outfile3 << endl;
+                outfile3 << s[i].name << endl;
+                outfile3 << s[i].s_password << endl;
+                outfile3 << s[i].adress << endl;
+                outfile3 << s[i].roll << endl;
+                for (int j = 0; j < 3; j++)
+                {
+                    outfile3 << s[i].course_taking[j] << endl;
+                }
+                outfile3 << s[i].faculty_name[0] << endl;
+                outfile3 << s[i].faculty_name[1] << endl;
+                outfile3 << s[i].faculty_name[2] << endl;
+                for (int q = 0; q < 3; q++)
+                {
+                    outfile3 << s[i].attandance[q] << "$" << endl;
+                }
+                for (int q = 0; q < 3; q++)
+                {
+                    outfile3 << s[i].absents[q] << "$" << endl;
+                }
+            }
+        }
+        outfile3.close();
+        cout << "No of students " << s_count;
+        getchar();
+        return 0;
+    }
 }
