@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 using namespace std;
+/*
 class Quiz
 {
 public:
@@ -58,7 +59,8 @@ public:
     }
     string Quiz_Question[3], Quiz_Answers[3];
     int marks;
-};
+};*/
+
 // <<<<<<---------------FACULTY----------------------->>>>>>>>>>>>
 class faculty
 {
@@ -67,6 +69,8 @@ protected:
 public:
     string phone;
     string f_name, f_password, course_name;
+    string questions[3];
+    bool quiz = 0;
     void set_data()
     {
         system("CLS");
@@ -100,6 +104,7 @@ class course : public faculty //, public Quiz
 protected:
 public:
     string c_name, semester, year, code;
+
     // Quiz q[3];
     // int no_of_quiz = -1;
     void set_data()
@@ -142,15 +147,15 @@ int c_count = 0;
 
 //<<<<<<<<<<----------------STUDENTS-------------->>>>>>>>>>>>
 
-class Students : public course, public Quiz
+class Students : public course
 {
 private:
 public:
     string roll;
     string name, adress, course_taking[3] = {"%%", "%%", "%%"}, faculty_name[3] = {"%%", "%%", "%%"};
-    string s_password;
+    string s_password, Ans[3];
     int save_course_taking_info;
-    int attandance[3] = {0, 0, 0}, absents[3] = {0, 0, 0}, marks;
+    int attandance[3] = {0, 0, 0}, absents[3] = {0, 0, 0}, marks[3] = {0, 0, 0};
     int no_of_course_taken = 0;
     void set_student_data()
     {
@@ -354,9 +359,40 @@ void faculty_panel()
         }
         else if (option == 3)
         {
+            cout << "Enter Q1 : ";
+            cin.ignore();
+            getline(cin, f[i].questions[0]);
+            cout << "Enter Q2 : ";
+            getline(cin, f[i].questions[1]);
+            cout << "Enter Q3 : ";
+            getline(cin, f[i].questions[2]);
+            cout << "\nQuiz Created\n\n";
+            f[i].quiz = 1;
         }
         else if (option == 4)
         {
+            for (iii = 0; iii < s_count; iii++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (s[iii].faculty_name[j] == n)
+                    {
+                        cout << "<<<<-----Student Name : " << s[iii].name << "----->>>>\n"
+                             << endl;
+                        cout << "Question 1 : " << f[i].questions[0] << endl;
+                        cout << "Answer     : " << s[iii].Ans[0] << endl;
+                        cout << "Question 2 : " << f[i].questions[1] << endl;
+                        cout << "Answer     : " << s[iii].Ans[1] << endl;
+                        cout << "Question 3 : " << f[i].questions[2] << endl;
+                        cout << "Answer     : " << s[iii].Ans[2] << endl;
+                        cout << "\nEnter Marks : ";
+                        cin >> s[iii].marks[j];
+
+                        break;
+                    }
+                    cout << "\n\nQuiz Checked\n\n";
+                }
+            }
         }
         else if (option == 5)
         {
@@ -397,6 +433,7 @@ void student_panel()
     while (true)
     {
         int option;
+        cin.ignore();
         cout << "1 Enroll a course\n2 View Attandance\n3 Take Quiz\n4 Check Marks\n";
         cout << "5 View Enrolled Course\n6 Exit To Main Menu\nChoose one : ";
         cin >> option;
@@ -427,6 +464,50 @@ void student_panel()
         }
         else if (option == 3)
         {
+            int temp2;
+            for (int ii = 0; ii < s[i].no_of_course_taken; ii++)
+            {
+                cout << "Course : " << s[i].course_taking[ii] << "     Teachar : " << s[i].faculty_name[ii] << endl;
+            }
+            cout << "Select Course(1 or 2 or 3)\n";
+            cin >> temp2;
+            for (int temp = 0; temp < f_count; temp++)
+            {
+                if (s[i].faculty_name[temp2] == f[temp].f_name)
+                {
+                    if (f[temp].quiz == 1)
+                    {
+                        cout << "\n<<<--------QUIZ---------->>>\n\n";
+                        cout << "Question 1 : " << f[temp].questions[0] << endl;
+                        cout << "Answer     : ";
+                        cin.ignore();
+                        getline(cin, s[i].Ans[0]);
+                        cout << "Question 2 : " << f[temp].questions[1] << endl;
+                        cout << "Answer     : ";
+                        getline(cin, s[i].Ans[1]);
+                        cout << "Question 3 : " << f[temp].questions[2] << endl;
+                        cout << "Answer     : ";
+                        getline(cin, s[i].Ans[2]);
+
+                        cout << "\n\nQuiz Completed\n\n";
+                    }
+                    else
+                        cout << "No Quiz \n";
+                }
+            }
+            //
+        }
+        else if (option == 4)
+        {
+            int temp;
+            for (int temp2 = 0; temp2 < s[i].no_of_course_taken; temp2++)
+            {
+                cout << s[i].course_taking[temp2] << endl;
+            }
+            cout << "Choose one (1,2,3,...) : ";
+            cin >> temp;
+            temp--;
+            cout << "\n\nMarks of " << s[i].course_taking[temp] << " are : " << s[i].marks[temp] << endl;
         }
         else if (option == 5)
         {
@@ -635,6 +716,22 @@ int main()
                 num = atoi(ch);
                 s[s_count].absents[i] = num;
             }
+            for (int i = 0; i < 3; i++)
+            {
+                int num;
+                char ch[5];
+                int j = 0;
+                char x;
+                file111 >> x;
+                while (x != '$')
+                {
+                    ch[j] = x;
+                    file111 >> x;
+                    j++;
+                }
+                num = atoi(ch);
+                s[s_count].marks[i] = num;
+            }
             s_count++;
         }
         s_count--;
@@ -713,7 +810,7 @@ int main()
         {
             for (int i = 0; i < s_count; i++)
             {
-                outfile3 << endl;
+                // outfile3 << endl;
                 outfile3 << s[i].name << endl;
                 outfile3 << s[i].s_password << endl;
                 outfile3 << s[i].adress << endl;
@@ -732,6 +829,10 @@ int main()
                 for (int q = 0; q < 3; q++)
                 {
                     outfile3 << s[i].absents[q] << "$" << endl;
+                }
+                for (int q = 0; q < 3; q++)
+                {
+                    outfile3 << s[i].marks[q] << "$" << endl;
                 }
             }
         }
