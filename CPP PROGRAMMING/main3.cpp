@@ -572,7 +572,7 @@ int main()
     file1.open("FacultyData.txt", ios::in);
     if (!file1)
     {
-        cout << "File Openng Error\n";
+        cout << "Input Faculty File Openng Error\n";
         return 0;
     }
     else
@@ -601,7 +601,7 @@ int main()
             f_count++;
         }
     }
-    int save_f = f_count;
+  //  int save_f = f_count;
     file1.close();
     // INPUT COURSE FROM FILES
     // INPUT COURSE FROM FILES
@@ -612,12 +612,12 @@ int main()
     {
         if (!file11)
         {
-            cout << "File Course not opened\n";
+            cout << "Input Course File Course not opened\n";
             return 0;
         }
         else
         {
-            cout << "OPENED\n";
+           // cout << "OPENED\n";
             while (!file11.eof())
             {
                 getline(file11, ch);
@@ -640,7 +640,7 @@ int main()
             }
         }
     }
-    int save_c = c_count;
+   // int save_c = c_count;
     file11.close();
 
     // INPUT STUDENTS FROM FILES
@@ -653,7 +653,7 @@ int main()
     file111.open("StudentData.txt", ios::in);
     if (!file111)
     {
-        cout << "Student not\n";
+        cout << "Input Student not Opened\n";
         return 0;
     }
     else
@@ -737,7 +737,7 @@ int main()
         s_count--;
         // int save_s = s_count;
         file111.close();
-        cout << "No of students " << s_count << endl;
+       // cout << "No of students " << s_count << endl;
         menu();
 
         //                    SAVING FACULTY DATA
