@@ -704,7 +704,7 @@ int main()
         }
     }
    // f_count--;
-    cout<<f_count;
+    //cout<<f_count;
     //  int save_f = f_count;
     file1.close();
     // INPUT COURSE FROM FILES
